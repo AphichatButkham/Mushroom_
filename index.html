@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="th">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -35,8 +35,8 @@
           <div class="brand-icon"><i class="fa-solid fa-seedling"></i></div>
           <div>
             <div class="brand-kicker">SMART FARM • IoT MONITORING</div>
-            <h1>โรงเรือนเห็ดอัจฉริยะ</h1>
-            <p>ระบบติดตามและควบคุมสภาพแวดล้อมแบบเรียลไทม์</p>
+            <h1>Smart Mushroom House</h1>
+            <p>Real-time environment monitoring and control system</p>
           </div>
         </div>
 
@@ -53,10 +53,10 @@
             id="btnDemo"
             class="btn btn-ghost"
             onclick="toggleDemoMode()"
-            title="ดูตัวอย่างการแสดงผลด้วยข้อมูลจำลอง"
+            title="Preview the display with simulated data"
           >
             <i class="fa-solid fa-flask"></i>
-            <span id="btnDemoText">โหมดทดลอง</span>
+            <span id="btnDemoText">Demo Mode</span>
           </button>
 
           <button
@@ -65,7 +65,7 @@
             onclick="toggleConnect()"
           >
             <i class="fa-solid fa-link"></i>
-            เชื่อมต่ออุปกรณ์
+            Connect Device
           </button>
         </div>
       </header>
@@ -77,8 +77,8 @@
             <span class="section-tag"
               ><i class="fa-solid fa-chart-simple"></i> LIVE OVERVIEW</span
             >
-            <h2>สภาพแวดล้อมภายในโรงเรือน</h2>
-            <p>ตรวจสอบอุณหภูมิ ความชื้น และสถานะระบบพ่นหมอกได้จากหน้าจอเดียว</p>
+            <h2>Environment Inside the Mushroom House</h2>
+            <p>Monitor temperature, humidity, and misting system status from a single screen</p>
           </div>
           <div class="live-indicator" id="liveIndicator">
             <span class="live-dot"></span>
@@ -95,11 +95,11 @@
                 <span class="section-tag"
                   ><i class="fa-solid fa-gauge-high"></i> INDOOR SENSORS</span
                 >
-                <h3>ค่าภายในตู้</h3>
+                <h3>Inside the Grow Chamber</h3>
               </div>
               <span class="updated-label"
                 ><i class="fa-regular fa-clock"></i>
-                <span id="lastUpdated">รอข้อมูล</span></span
+                <span id="lastUpdated">Waiting for data</span></span
               >
             </div>
 
@@ -110,7 +110,7 @@
                     ><i class="fa-solid fa-temperature-half"></i
                   ></span>
                   <div>
-                    <b>อุณหภูมิอากาศ</b><small>Ambient temperature</small>
+                    <b>Air Temperature</b><small>Ambient temperature</small>
                   </div>
                 </div>
                 <div class="gauge-wrap">
@@ -121,7 +121,7 @@
                   </div>
                 </div>
                 <div class="range-note">
-                  <span>เกณฑ์ 22–28°C</span>
+                  <span>Target 22–28°C</span>
                   <span class="gauge-status" id="airStatus">--</span>
                 </div>
               </article>
@@ -132,7 +132,7 @@
                     ><i class="fa-solid fa-droplet"></i
                   ></span>
                   <div>
-                    <b>ความชื้นอากาศ</b><small>Relative humidity</small>
+                    <b>Air Humidity</b><small>Relative humidity</small>
                   </div>
                 </div>
                 <div class="gauge-wrap">
@@ -143,7 +143,7 @@
                   </div>
                 </div>
                 <div class="range-note">
-                  <span id="humZoneLabel">เป้าหมาย ≥75%</span>
+                  <span id="humZoneLabel">Target ≥75%</span>
                   <span class="gauge-status" id="humStatus">--</span>
                 </div>
               </article>
@@ -153,7 +153,7 @@
                   <span class="title-icon mint-bg"
                     ><i class="fa-solid fa-temperature-three-quarters"></i
                   ></span>
-                  <div><b>อุณหภูมิเห็ด</b><small>Mushroom temperature</small></div>
+                  <div><b>Mushroom Temperature</b><small>Mushroom temperature</small></div>
                 </div>
                 <div class="gauge-wrap">
                   <div class="gauge-svg" id="gaugeSoil"></div>
@@ -163,7 +163,7 @@
                   </div>
                 </div>
                 <div class="range-note">
-                  <span>เกณฑ์ 20–26°C</span>
+                  <span>Target 20–26°C</span>
                   <span class="gauge-status" id="soilStatus">--</span>
                 </div>
               </article>
@@ -175,7 +175,7 @@
                 <span class="section-tag outdoor-tag"
                   ><i class="fa-solid fa-cloud-sun"></i> OUTDOOR REFERENCE</span
                 >
-                <h3>สภาพภายนอกตู้</h3>
+                <h3>Conditions Outside the Chamber</h3>
               </div>
               <div class="delta-strip">
                 <span class="delta-chip" id="deltaTempChip"
@@ -194,7 +194,7 @@
                     ><i class="fa-solid fa-cloud-sun"></i
                   ></span>
                   <div>
-                    <b>อุณหภูมิภายนอก</b><small>Outside temperature</small>
+                    <b>Outdoor Temperature</b><small>Outside temperature</small>
                   </div>
                 </div>
                 <div class="gauge-wrap">
@@ -204,7 +204,7 @@
                     <span>°C</span>
                   </div>
                 </div>
-                <div class="range-note-simple">ค่าอ้างอิงรอบโรงเรือน</div>
+                <div class="range-note-simple">Reference value around the house</div>
               </article>
 
               <article class="card gauge-card outdoor">
@@ -213,7 +213,7 @@
                     ><i class="fa-solid fa-wind"></i
                   ></span>
                   <div>
-                    <b>ความชื้นภายนอก</b><small>Outside humidity</small>
+                    <b>Outdoor Humidity</b><small>Outside humidity</small>
                   </div>
                 </div>
                 <div class="gauge-wrap">
@@ -223,7 +223,7 @@
                     <span>%RH</span>
                   </div>
                 </div>
-                <div class="range-note-simple">ค่าอ้างอิงรอบโรงเรือน</div>
+                <div class="range-note-simple">Reference value around the house</div>
               </article>
             </div>
 
@@ -235,15 +235,15 @@
                 </div>
                 <div>
                   <span class="section-tag">MISTING SYSTEM</span>
-                  <h3>ระบบพ่นหมอกอัตโนมัติ</h3>
-                  <p>ควบคุมตามค่าความชื้นเป้าหมายที่กำหนด</p>
+                  <h3>Automatic Misting System</h3>
+                  <p>Controlled based on the set target humidity</p>
                 </div>
               </div>
               <div class="mist-state">
                 <i class="fas fa-toggle-off mist-icon off" id="mistIcon"></i>
                 <div>
                   <strong class="mist-label off" id="mistLabel">OFF</strong>
-                  <small id="mistStateText">ระบบอยู่ในโหมดสแตนด์บาย</small>
+                  <small id="mistStateText">System is in standby mode</small>
                 </div>
               </div>
             </article>
@@ -255,13 +255,13 @@
                   <span class="section-tag"
                     ><i class="fa-solid fa-chart-pie"></i> SESSION OVERVIEW</span
                   >
-                  <h3>สรุปภาพรวมการทำงาน</h3>
-                  <p>สถิติสะสมตั้งแต่เริ่มเชื่อมต่ออุปกรณ์</p>
+                  <h3>Session Overview</h3>
+                  <p>Cumulative stats since the device was connected</p>
                 </div>
                 <button
                   class="btn-icon-reset"
                   onclick="resetSessionStats()"
-                  title="รีเซ็ตสถิติ"
+                  title="Reset stats"
                 >
                   <i class="fa-solid fa-rotate-right"></i>
                 </button>
@@ -273,7 +273,7 @@
                     ><i class="fa-solid fa-temperature-half"></i
                   ></span>
                   <div class="summary-text">
-                    <small>อุณหภูมิเฉลี่ย</small>
+                    <small>Average Temperature</small>
                     <div><strong id="statAvgTemp">--</strong><span>°C</span></div>
                   </div>
                 </div>
@@ -282,7 +282,7 @@
                     ><i class="fa-solid fa-droplet"></i
                   ></span>
                   <div class="summary-text">
-                    <small>ความชื้นเฉลี่ย</small>
+                    <small>Average Humidity</small>
                     <div><strong id="statAvgHum">--</strong><span>%</span></div>
                   </div>
                 </div>
@@ -291,8 +291,8 @@
                     ><i class="fa-solid fa-cloud-rain"></i
                   ></span>
                   <div class="summary-text">
-                    <small>จำนวนครั้งพ่นหมอก</small>
-                    <div><strong id="statMistCycles">0</strong><span>ครั้ง</span></div>
+                    <small>Misting Cycles</small>
+                    <div><strong id="statMistCycles">0</strong><span>times</span></div>
                   </div>
                 </div>
                 <div class="summary-item">
@@ -300,7 +300,7 @@
                     ><i class="fa-solid fa-stopwatch"></i
                   ></span>
                   <div class="summary-text">
-                    <small>เวลาที่เชื่อมต่อ</small>
+                    <small>Connected Time</small>
                     <div><strong id="statUptime">00:00:00</strong></div>
                   </div>
                 </div>
@@ -317,8 +317,8 @@
                     ><i class="fa-solid fa-chart-line"></i> TREND
                     ANALYTICS</span
                   >
-                  <h3>แนวโน้มสภาพแวดล้อม</h3>
-                  <p>ข้อมูลล่าสุดสูงสุด 20 จุด</p>
+                  <h3>Environment Trends</h3>
+                  <p>Latest 20 data points</p>
                 </div>
                 <div class="chart-badge" id="chartBadge">
                   <i class="fa-solid fa-signal"></i> Live
@@ -328,27 +328,27 @@
               <div class="chart-legend" id="chartLegend">
                 <div class="legend-chip legend-air" data-series="0" onclick="toggleSeries(0, this)">
                   <span class="legend-dot"></span>
-                  <span class="legend-name">อากาศใน</span>
+                  <span class="legend-name">Indoor Air</span>
                   <strong id="miniAir">--</strong><small>°C</small>
                 </div>
                 <div class="legend-chip legend-hum" data-series="1" onclick="toggleSeries(1, this)">
                   <span class="legend-dot"></span>
-                  <span class="legend-name">ความชื้นใน</span>
+                  <span class="legend-name">Indoor Humidity</span>
                   <strong id="miniHum">--</strong><small>%</small>
                 </div>
                 <div class="legend-chip legend-soil" data-series="2" onclick="toggleSeries(2, this)">
                   <span class="legend-dot"></span>
-                  <span class="legend-name">เห็ด</span>
+                  <span class="legend-name">Mushroom</span>
                   <strong id="miniSoil">--</strong><small>°C</small>
                 </div>
                 <div class="legend-chip legend-air-out" data-series="3" onclick="toggleSeries(3, this)">
                   <span class="legend-dot"></span>
-                  <span class="legend-name">อากาศนอก</span>
+                  <span class="legend-name">Outdoor Air</span>
                   <strong id="miniAirOut">--</strong><small>°C</small>
                 </div>
                 <div class="legend-chip legend-hum-out" data-series="4" onclick="toggleSeries(4, this)">
                   <span class="legend-dot"></span>
-                  <span class="legend-name">ความชื้นนอก</span>
+                  <span class="legend-name">Outdoor Humidity</span>
                   <strong id="miniHumOut">--</strong><small>%</small>
                 </div>
               </div>
@@ -357,7 +357,7 @@
                 <canvas id="trendChart"></canvas>
                 <div class="chart-empty" id="chartEmpty">
                   <i class="fa-solid fa-chart-line"></i>
-                  <span>กำลังรอข้อมูลจาก ESP32</span>
+                  <span>Waiting for data from ESP32</span>
                 </div>
               </div>
             </article>
@@ -368,8 +368,8 @@
                   <span class="section-tag"
                     ><i class="fa-solid fa-sliders"></i> CONTROL PANEL</span
                   >
-                  <h3>ตั้งค่าความชื้นเป้าหมาย</h3>
-                  <p>กำหนดจุดทำงานของระบบพ่นหมอก</p>
+                  <h3>Set Target Humidity</h3>
+                  <p>Define the operating point of the misting system</p>
                 </div>
                 <span class="auto-badge"
                   ><i class="fa-solid fa-wand-magic-sparkles"></i> AUTO</span
@@ -386,7 +386,7 @@
                 </div>
 
                 <div class="config-form">
-                  <label for="targetHum">ความชื้นเป้าหมาย (%)</label>
+                  <label for="targetHum">Target Humidity (%)</label>
                   <div class="input-group">
                     <input
                       type="number"
@@ -399,8 +399,8 @@
                     <span>%RH</span>
                   </div>
                   <small
-                    ><i class="fa-solid fa-circle-info"></i> ต่ำกว่าค่านี้ →
-                    เปิดพ่นหมอก · ตั้งแต่ค่านี้ขึ้นไป → ปิด</small
+                    ><i class="fa-solid fa-circle-info"></i> Below this value →
+                    misting turns ON · At or above this value → OFF</small
                   >
                   <button
                     id="btnSave"
@@ -409,7 +409,7 @@
                     disabled
                   >
                     <i class="fa-solid fa-cloud-arrow-up"></i>
-                    บันทึกไปยัง ESP32
+                    Save to ESP32
                   </button>
                 </div>
               </div>
@@ -421,10 +421,10 @@
                   <span class="section-tag"
                     ><i class="fa-solid fa-table-cells"></i> DATA LOGGING</span
                   >
-                  <h3>บันทึกข้อมูลลง Google Sheet</h3>
-                  <p>ส่งข้อมูลเซนเซอร์ไปเก็บอัตโนมัติตามรอบเวลา</p>
+                  <h3>Log Data to Google Sheet</h3>
+                  <p>Automatically send sensor data at set intervals</p>
                 </div>
-                <label class="switch" title="เปิด/ปิดการบันทึก">
+                <label class="switch" title="Enable/disable logging">
                   <input
                     type="checkbox"
                     id="sheetEnable"
@@ -446,12 +446,12 @@
 
                 <div class="sheet-row">
                   <div class="sheet-col">
-                    <label for="sheetInterval">ความถี่ในการบันทึก</label>
+                    <label for="sheetInterval">Logging Frequency</label>
                     <select id="sheetInterval" class="sheet-select">
-                      <option value="10000">ทุก 10 วินาที</option>
-                      <option value="30000" selected>ทุก 30 วินาที</option>
-                      <option value="60000">ทุก 1 นาที</option>
-                      <option value="300000">ทุก 5 นาที</option>
+                      <option value="10000">Every 10 seconds</option>
+                      <option value="30000" selected>Every 30 seconds</option>
+                      <option value="60000">Every 1 minute</option>
+                      <option value="300000">Every 5 minutes</option>
                     </select>
                   </div>
                   <div class="sheet-col sheet-col-btn">
@@ -460,14 +460,14 @@
                       id="btnTestSheet"
                       onclick="testSheetConnection()"
                     >
-                      <i class="fa-solid fa-paper-plane"></i> ทดสอบส่งข้อมูล
+                      <i class="fa-solid fa-paper-plane"></i> Test Send
                     </button>
                   </div>
                 </div>
 
                 <div class="sheet-status" id="sheetStatus">
                   <i class="fa-regular fa-circle"></i>
-                  <span>ยังไม่ได้เปิดใช้งานการบันทึก</span>
+                  <span>Logging not yet enabled</span>
                 </div>
               </div>
             </article>
