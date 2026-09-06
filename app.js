@@ -164,13 +164,13 @@ function updateHumidityZone(targetHum) {
         zoneEl.setAttribute('stroke-dashoffset', String(-zoneStart));
     }
     const label = document.getElementById('humZoneLabel');
-    if (label) label.textContent = `เป้าหมาย ≥${cfg.optimalMin}%`;
+    if (label) label.textContent = `Target ≥${cfg.optimalMin}%`;
 }
 
 function gaugeStatus(cfg, value) {
-    if (value < cfg.optimalMin) return { cls: 'status-low', text: 'ต่ำ' };
-    if (value > cfg.optimalMax) return { cls: 'status-high', text: 'สูง' };
-    return { cls: 'status-ok', text: 'ปกติ' };
+    if (value < cfg.optimalMin) return { cls: 'status-low', text: 'Low' };
+    if (value > cfg.optimalMax) return { cls: 'status-high', text: 'High' };
+    return { cls: 'status-ok', text: 'Normal' };
 }
 
 function setGaugeValue(key, rawValue, statusElId) {
@@ -189,7 +189,7 @@ function setGaugeValue(key, rawValue, statusElId) {
         // ความชื้นใช้ตรรกะพิเศษ: ต่ำกว่าเป้าหมาย = กำลังพ่นหมอก, ถึงเป้าหมาย = เพียงพอ
         let status;
         if (key === 'hum') {
-            status = value < cfg.optimalMin ? { cls: 'status-low', text: 'กำลังพ่นหมอก' } : { cls: 'status-ok', text: 'เพียงพอ' };
+            status = value < cfg.optimalMin ? { cls: 'status-low', text: 'Misting' } : { cls: 'status-ok', text: 'Sufficient' };
         } else {
             status = gaugeStatus(cfg, value);
         }
@@ -221,7 +221,7 @@ function resetSessionStats() {
     if (dom.statAvgHum) dom.statAvgHum.textContent = '--';
     if (dom.statMistCycles) dom.statMistCycles.textContent = '0';
 
-    showToast('รีเซ็ตสถิติภาพรวมแล้ว', false);
+    showToast('Session stats reset', false);
 }
 
 function formatUptime(ms) {
@@ -286,7 +286,7 @@ function initChart() {
             labels: [],
             datasets: [
                 {
-                    label: 'อุณหภูมิอากาศ (°C)',
+                    label: 'Air Temperature (°C)',
                     data: [],
                     borderColor: SERIES_COLORS.air,
                     backgroundColor: (c) => c.chart.chartArea ? makeGradient(ctx, c.chart.chartArea, SERIES_COLORS.air, 0.28, 0.01) : 'transparent',
@@ -301,7 +301,7 @@ function initChart() {
                     yAxisID: 'yTemp',
                 },
                 {
-                    label: 'ความชื้น (%)',
+                    label: 'Humidity (%)',
                     data: [],
                     borderColor: SERIES_COLORS.hum,
                     backgroundColor: (c) => c.chart.chartArea ? makeGradient(ctx, c.chart.chartArea, SERIES_COLORS.hum, 0.24, 0.01) : 'transparent',
@@ -316,7 +316,7 @@ function initChart() {
                     yAxisID: 'yHum',
                 },
                 {
-                    label: 'อุณหภูมิเห็ด (°C)',
+                    label: 'Mushroom Temperature (°C)',
                     data: [],
                     borderColor: SERIES_COLORS.soil,
                     backgroundColor: 'transparent',
@@ -332,7 +332,7 @@ function initChart() {
                     yAxisID: 'yTemp',
                 },
                 {
-                    label: 'อุณหภูมิภายนอก (°C)',
+                    label: 'Outdoor Temperature (°C)',
                     data: [],
                     borderColor: SERIES_COLORS.airOut,
                     backgroundColor: 'transparent',
@@ -348,7 +348,7 @@ function initChart() {
                     yAxisID: 'yTemp',
                 },
                 {
-                    label: 'ความชื้นภายนอก (%)',
+                    label: 'Outdoor Humidity (%)',
                     data: [],
                     borderColor: SERIES_COLORS.humOut,
                     backgroundColor: 'transparent',
@@ -427,7 +427,7 @@ async function toggleConnect() {
     if (demoInterval) stopDemoMode();
 
     if (!navigator.bluetooth) {
-        showToast('เบราว์เซอร์ไม่รองรับ Web Bluetooth (ต้องใช้ Chrome/Edge และ HTTPS/localhost)', true);
+        showToast('Browser does not support Web Bluetooth (requires Chrome/Edge and HTTPS/localhost)', true);
         return;
     }
  
@@ -459,10 +459,10 @@ async function toggleConnect() {
  
         updateUIConnected(true);
         console.log('Connected successfully!');
-        showToast('เชื่อมต่อสำเร็จ ✓', false);
+        showToast('Connected successfully ✓', false);
     } catch (error) {
         console.error('Connection failed:', error);
-        showToast('ไม่สามารถเชื่อมต่อได้: ' + error.message, true);
+        showToast('Unable to connect: ' + error.message, true);
         setConnecting(false);
         updateUIConnected(false);
     }
@@ -473,7 +473,7 @@ function setConnecting(isConnecting) {
     dom.btnConnect.classList.toggle('connecting', isConnecting);
     dom.btnConnect.disabled = isConnecting;
     if (isConnecting) {
-        dom.btnConnect.innerHTML = '<i class="fa-solid fa-spinner"></i> <span>กำลังเชื่อมต่อ…</span>';
+        dom.btnConnect.innerHTML = '<i class="fa-solid fa-spinner"></i> <span>Connecting…</span>';
         if (dom.badge) dom.badge.classList.add('connecting');
         if (dom.status) dom.status.textContent = 'Connecting…';
     }
@@ -488,7 +488,7 @@ function updateUIConnected(isConnected) {
     if (isConnected) {
         dom.status.textContent = 'Connected';
         dom.badge.classList.add('on');
-        dom.btnConnect.innerHTML = '<i class="fa-brands fa-bluetooth-b"></i> <span>ตัดการเชื่อมต่อ</span>';
+        dom.btnConnect.innerHTML = '<i class="fa-brands fa-bluetooth-b"></i> <span>Disconnect</span>';
         dom.btnConnect.classList.add('connected');
         dom.btnSave.disabled = false;
         if (dom.liveIndicator) dom.liveIndicator.classList.remove('paused');
@@ -500,7 +500,7 @@ function updateUIConnected(isConnected) {
     } else {
         dom.status.textContent = 'Disconnected';
         dom.badge.classList.remove('on');
-        dom.btnConnect.innerHTML = '<i class="fa-brands fa-bluetooth-b"></i> <span>เชื่อมต่อ</span>';
+        dom.btnConnect.innerHTML = '<i class="fa-brands fa-bluetooth-b"></i> <span>Connect</span>';
         dom.btnConnect.classList.remove('connected');
         dom.btnSave.disabled = true;
  
@@ -518,7 +518,7 @@ function updateUIConnected(isConnected) {
         if (dom.deltaHumChip) dom.deltaHumChip.innerHTML = '<i class="fa-solid fa-droplet"></i> Δ--%';
         setMistState(false);
  
-        if (dom.lastUpdated) dom.lastUpdated.textContent = 'รอข้อมูล';
+        if (dom.lastUpdated) dom.lastUpdated.textContent = 'Waiting for data';
         if (dom.liveIndicator) dom.liveIndicator.classList.add('paused');
         if (dom.chartBadge) {
             dom.chartBadge.classList.add('idle');
@@ -534,7 +534,7 @@ function updateUIConnected(isConnected) {
 function onDisconnected() {
     console.log('BLE Disconnected');
     updateUIConnected(false);
-    showToast('ตัดการเชื่อมต่อ BLE', false);
+    showToast('BLE disconnected', false);
 }
  
 // ── TELEMETRY ──
@@ -671,7 +671,7 @@ function toggleDemoMode() {
         return;
     }
     if (bleDevice && bleDevice.gatt && bleDevice.gatt.connected) {
-        showToast('กรุณาตัดการเชื่อมต่ออุปกรณ์จริงก่อนใช้โหมดทดลอง', true);
+        showToast('Please disconnect the real device before using demo mode', true);
         return;
     }
     startDemoMode();
@@ -683,7 +683,7 @@ function startDemoMode() {
 
     if (dom.btnConnect) dom.btnConnect.disabled = true;
     if (dom.btnDemo) dom.btnDemo.classList.add('active');
-    if (dom.btnDemoText) dom.btnDemoText.textContent = 'ปิดโหมดทดลอง';
+    if (dom.btnDemoText) dom.btnDemoText.textContent = 'Exit Demo Mode';
     if (dom.status) dom.status.textContent = 'Demo Mode';
     if (dom.badge) dom.badge.classList.add('on');
     if (dom.liveIndicator) { dom.liveIndicator.classList.remove('paused'); dom.liveIndicator.classList.add('demo'); }
@@ -695,7 +695,7 @@ function startDemoMode() {
     }
     if (dom.chartEmpty) dom.chartEmpty.classList.add('hidden');
     startUptimeTimer();
-    showToast('เปิดโหมดทดลอง — กำลังแสดงข้อมูลจำลอง', false);
+    showToast('Demo mode enabled — showing simulated data', false);
 }
 
 function stopDemoMode() {
@@ -703,7 +703,7 @@ function stopDemoMode() {
     demoInterval = null;
 
     if (dom.btnDemo) dom.btnDemo.classList.remove('active');
-    if (dom.btnDemoText) dom.btnDemoText.textContent = 'โหมดทดลอง';
+    if (dom.btnDemoText) dom.btnDemoText.textContent = 'Demo Mode';
     if (dom.liveIndicator) dom.liveIndicator.classList.remove('demo');
     if (dom.liveIndicatorText) dom.liveIndicatorText.textContent = 'LIVE DATA';
     if (dom.chartBadge) dom.chartBadge.classList.remove('demo');
@@ -725,12 +725,12 @@ function setMistState(isOn) {
             dom.mistIcon.className = 'mist-icon on fas fa-toggle-on';
             dom.mistLabel.textContent = 'ON';
             dom.mistLabel.className = 'mist-label on';
-            if (dom.mistStateText) dom.mistStateText.textContent = 'กำลังพ่นหมอกเพื่อเพิ่มความชื้น';
+            if (dom.mistStateText) dom.mistStateText.textContent = 'Misting to increase humidity';
         } else {
             dom.mistIcon.className = 'mist-icon off fas fa-toggle-off';
             dom.mistLabel.textContent = 'OFF';
             dom.mistLabel.className = 'mist-label off';
-            if (dom.mistStateText) dom.mistStateText.textContent = 'ระบบอยู่ในโหมดสแตนด์บาย';
+            if (dom.mistStateText) dom.mistStateText.textContent = 'System is in standby mode';
         }
     }
     if (dom.miniMist) {
@@ -770,7 +770,7 @@ async function sendConfig() {
     const inputEl = document.getElementById('targetHum');
     const targetHum = parseFloat(inputEl.value);
     if (isNaN(targetHum) || targetHum < 0 || targetHum > 100) {
-        showToast('กรุณากรอกค่าความชื้นระหว่าง 0-100', true);
+        showToast('Please enter a humidity value between 0-100', true);
         return;
     }
  
@@ -781,13 +781,13 @@ async function sendConfig() {
     try {
         await configChar.writeValue(encoder.encode(jsonString));
         syncTargetDisplay(targetHum);
-        showToast('บันทึกความชื้นเป้าหมายสำเร็จ! ✓', false);
+        showToast('Target humidity saved successfully! ✓', false);
         console.log('Sent Config:', jsonString);
  
         if (dom.btnSave) {
             const original = dom.btnSave.innerHTML;
             dom.btnSave.classList.add('saved');
-            dom.btnSave.innerHTML = '<i class="fa-solid fa-check"></i> บันทึกแล้ว';
+            dom.btnSave.innerHTML = '<i class="fa-solid fa-check"></i> Saved';
             setTimeout(() => {
                 dom.btnSave.classList.remove('saved');
                 dom.btnSave.innerHTML = original;
@@ -795,7 +795,7 @@ async function sendConfig() {
         }
     } catch (error) {
         console.error('Failed to write config:', error);
-        showToast('เกิดข้อผิดพลาด: ' + error.message, true);
+        showToast('Error: ' + error.message, true);
     }
 }
  
@@ -830,7 +830,7 @@ function initSheetLogging() {
         dom.sheetEnable.checked = savedEnabled && !!savedUrl;
         if (dom.sheetEnable.checked) {
             startSheetLogInterval();
-            setSheetStatus('ok', 'กำลังบันทึกข้อมูลอัตโนมัติ');
+            setSheetStatus('ok', 'Auto-logging active');
         }
     }
 }
@@ -841,19 +841,19 @@ function toggleSheetLogging() {
     if (dom.sheetEnable.checked) {
         const url = (dom.sheetUrl.value || '').trim();
         if (!url) {
-            showToast('กรุณากรอกลิงก์ Google Apps Script Web App ก่อนเปิดใช้งาน', true);
+            showToast('Please enter the Google Apps Script Web App URL before enabling', true);
             dom.sheetEnable.checked = false;
             return;
         }
         localStorage.setItem(SHEET_STORAGE_KEY.url, url);
         localStorage.setItem(SHEET_STORAGE_KEY.enabled, 'true');
         startSheetLogInterval();
-        setSheetStatus('ok', 'เปิดใช้งานการบันทึกอัตโนมัติแล้ว');
-        showToast('เปิดการบันทึกข้อมูลลง Google Sheet แล้ว', false);
+        setSheetStatus('ok', 'Auto-logging enabled');
+        showToast('Google Sheet logging enabled', false);
     } else {
         localStorage.setItem(SHEET_STORAGE_KEY.enabled, 'false');
         stopSheetLogInterval();
-        setSheetStatus('', 'ปิดใช้งานการบันทึกอัตโนมัติ');
+        setSheetStatus('', 'Auto-logging disabled');
     }
 }
 
@@ -901,11 +901,11 @@ async function sendToGoogleSheet(data) {
             body: JSON.stringify(payload),
         });
         const now = new Date().toLocaleTimeString('th-TH', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-        setSheetStatus('ok', `บันทึกล่าสุด: ${now}`);
+        setSheetStatus('ok', `Last saved: ${now}`);
         return true;
     } catch (error) {
         console.error('Failed to send data to Google Sheet:', error);
-        setSheetStatus('err', 'ส่งข้อมูลไม่สำเร็จ ตรวจสอบลิงก์และอินเทอร์เน็ต');
+        setSheetStatus('err', 'Failed to send data. Check the link and your internet connection');
         return false;
     }
 }
@@ -913,7 +913,7 @@ async function sendToGoogleSheet(data) {
 async function testSheetConnection() {
     const url = (dom.sheetUrl ? dom.sheetUrl.value : '').trim();
     if (!url) {
-        showToast('กรุณากรอกลิงก์ Google Apps Script Web App ก่อน', true);
+        showToast('Please enter the Google Apps Script Web App URL first', true);
         return;
     }
 
@@ -921,20 +921,20 @@ async function testSheetConnection() {
 
     if (dom.btnTestSheet) {
         dom.btnTestSheet.disabled = true;
-        dom.btnTestSheet.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> กำลังส่ง...';
+        dom.btnTestSheet.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Sending...';
     }
 
     const ok = await sendToGoogleSheet(sample);
 
     if (dom.btnTestSheet) {
         dom.btnTestSheet.disabled = false;
-        dom.btnTestSheet.innerHTML = '<i class="fa-solid fa-paper-plane"></i> ทดสอบส่งข้อมูล';
+        dom.btnTestSheet.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Test Send';
     }
 
     if (ok) {
-        showToast('ส่งข้อมูลทดสอบแล้ว กรุณาตรวจสอบใน Google Sheet ✓', false);
+        showToast('Test data sent, please check Google Sheet ✓', false);
     } else {
-        showToast('ส่งข้อมูลทดสอบไม่สำเร็จ ตรวจสอบลิงก์อีกครั้ง', true);
+        showToast('Test failed. Please check the link again', true);
     }
 }
 
